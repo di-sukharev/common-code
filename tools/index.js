@@ -29,8 +29,6 @@ export const parseToken = token => {
   return payload;
 };
 
-export { default as LocalStorage } from './LocalStorage';
-
 export const deleteSpaces = str => str.replace(/\s/g, '');
 
 export const deletePhone7 = phone => phone.replace(/7/, '');
@@ -57,3 +55,5 @@ export const parseObjectToURL = obj => {
 
   return params;
 };
+
+export { default as LocalStorage } from './LocalStorage';
