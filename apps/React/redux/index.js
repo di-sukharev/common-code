@@ -37,5 +37,6 @@ export default () => {
   const persistor = persistStore(store);
 
   sagaMiddleware.run(saga);
+  
   return { store, persistor };
 };
