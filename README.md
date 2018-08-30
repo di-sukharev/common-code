@@ -1,2 +1,2 @@
 # Common JavaScript 🐉
-Here i save common code boilerplates
+Here i save code boilerplates
