@@ -16,6 +16,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "restart": "npm start -- --reset-cache",
         "precommit": "lint-staged",
         "lint": "./node_modules/.bin/eslint ./src",
         "test": "react-scripts test --env=jsdom",
