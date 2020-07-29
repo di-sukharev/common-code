@@ -9,6 +9,7 @@ export const b64DecodeUnicode = str => {
       .join('')
   );
 };
+
 export const isExpired = time => Math.ceil((time - Date.now()) / 1000) <= 0;
 
 export const isNotEmptyObject = obj => isObject(obj) && Object.keys(obj).length;
@@ -30,14 +31,6 @@ export const parseToken = token => {
 };
 
 export const deleteSpaces = str => str.replace(/\s/g, '');
-
-export const deletePhone7 = phone => phone.replace(/7/, '');
-
-export const addPhone7 = phone => `7${phone}`;
-
-export const deletePhonePlus = phone => phone.replace(/\+/, '');
-
-export const formatCompany = (t, inn, name) => `${inn} ${t('Separator')} ${name}`;
 
 export const isArray = arr => Array.isArray(arr);
 

@@ -1,32 +1,43 @@
-import { Record, OrderedMap } from 'immutable';
 import { createSelector } from 'reselect';
-import { REQUEST_STATUS } from '../constants';
+import { Record } from 'immutable';
 
-export const IsRequestLoadingCreateSelector = asyncDataSelector =>
-  createSelector(asyncDataSelector, request => request.status === REQUEST_STATUS.REQUEST);
-export const IsRequestSuccessCreateSelector = asyncDataSelector =>
-  createSelector(asyncDataSelector, request => request.status === REQUEST_STATUS.SUCCESS);
-export const IsRequestFailureCreateSelector = asyncDataSelector =>
-  createSelector(asyncDataSelector, request => request.status === REQUEST_STATUS.FAILURE);
+// CONSTANTS
 
-export const CreateSelectorGetData = reduxFieldSelector =>
-  createSelector(reduxFieldSelector, asyncData => {
-    const data = asyncData.get('data');
-    return data ? data.toArray() : null;
-  });
+export const REQUEST_STATUS = {
+  NONE: 'NONE',
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE',
+  DONE: 'DONE',
+};
 
-export const locationSelector = state => state.router.location;
+// RECORDS
 
 export const AsyncData = Record({
   data: null,
   status: REQUEST_STATUS.NONE,
+  error: null,
 });
 
-export const reducerTrigger = field => state =>
-  state.setIn([field, 'status'], REQUEST_STATUS.REQUEST);
-export const reducerFailure = field => state =>
-  state.setIn([field, 'status'], REQUEST_STATUS.FAILURE);
-export const reducerSuccess = field => (state, { payload }) => {
-  const data = new OrderedMap(payload.map(item => [item.id, item]));
-  return state.set(field, new AsyncData({ data, status: REQUEST_STATUS.SUCCESS }));
-};
+// SELECTORS
+
+export const IsRequestLoadingSelector = asyncDataSelector =>
+  createSelector(
+    asyncDataSelector,
+    ({ status }) => status === REQUEST_STATUS.PENDING
+  );
+export const IsRequestDoneSelector = asyncDataSelector =>
+  createSelector(
+    asyncDataSelector,
+    ({ status }) => status === REQUEST_STATUS.DONE
+  );
+export const IsRequestFailedSelector = asyncDataSelector =>
+  createSelector(
+    asyncDataSelector,
+    ({ status }) => status === REQUEST_STATUS.FAILURE
+  );
+export const IsRequestSuccessSelector = asyncDataSelector =>
+  createSelector(
+    asyncDataSelector,
+    ({ status }) => status === REQUEST_STATUS.SUCCESS
+  );
